@@ -11,7 +11,7 @@
 Data classes representing OTT for ePrescription, as a SD JWT Credential, with the help
 of [VC-K](https://github.com/a-sit-plus/vck).
 
-Be sure to call `at.asitplus.wallet.eprescription.Initializer.initWithVcLib` first thing in your application.
+Be sure to call `at.asitplus.wallet.eprescription.Initializer.initWithVCK` first thing in your application.
 
 ## Changelog
 
