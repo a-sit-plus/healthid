@@ -1,6 +1,6 @@
 package at.asitplus.wallet.eprescription
 
-import at.asitplus.wallet.lib.data.jsonSerializer
+import at.asitplus.wallet.lib.data.vckJsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Instant
@@ -15,10 +15,10 @@ class SerializerTest : FunSpec({
             countryCode = randomString(),
             validUntil = randomInstant(),
         )
-        val serialized = jsonSerializer.encodeToString(credential)
+        val serialized = vckJsonSerializer.encodeToString(credential)
             .also { println(it) }
 
-        val parsed: EPrescription = jsonSerializer.decodeFromString(serialized)
+        val parsed: EPrescription = vckJsonSerializer.decodeFromString(serialized)
 
         parsed shouldBe credential
     }
