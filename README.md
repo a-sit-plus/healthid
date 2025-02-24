@@ -16,7 +16,7 @@ Be sure to call `at.asitplus.wallet.healthid.Initializer.initWithVCK` first thin
 ## Changelog
 
 Release 2.0.0:
-- Rebrand as `HealthID` to accommodate changes to attestation rulebook
+- Rebrand as `HealthID` to accommodate changes to attestation rulebook as of 2025-02-23z
 - Update to VC-K 5.4.2
 
 Release 1.1.1:
