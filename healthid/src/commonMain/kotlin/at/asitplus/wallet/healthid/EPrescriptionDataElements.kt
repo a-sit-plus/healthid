@@ -1,4 +1,4 @@
-package at.asitplus.wallet.eprescription
+package at.asitplus.wallet.healthid
 
 
 object EPrescriptionDataElements {

@@ -25,7 +25,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api("at.asitplus.wallet:vck:5.2.1")
+                api("at.asitplus.wallet:vck:5.4.2")
             }
         }
     }
@@ -38,8 +38,8 @@ publishing {
         withType<MavenPublication> {
             artifact(javadocJar)
             pom {
-                name.set("ePrescription OTT")
-                description.set("Use data representing OTT for ePrescription as a SD JWT Credential")
+                name.set("Health ID Attestation")
+                description.set("Use data representing Health ID as a SD-JWT credential, using VC-K")
                 url.set("https://github.com/a-sit-plus/eprescription/")
                 licenses {
                     license {
@@ -67,11 +67,6 @@ publishing {
             signing.isRequired = false
         }
     }
-}
-
-repositories {
-    mavenCentral()
-    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
 }
 
 signing {

@@ -1,4 +1,4 @@
-package at.asitplus.wallet.eprescription
+package at.asitplus.wallet.healthid
 
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import io.kotest.core.spec.style.FunSpec

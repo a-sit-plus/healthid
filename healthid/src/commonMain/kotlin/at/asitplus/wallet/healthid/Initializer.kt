@@ -1,4 +1,4 @@
-package at.asitplus.wallet.eprescription
+package at.asitplus.wallet.healthid
 
 import at.asitplus.wallet.lib.LibraryInitializer
 
@@ -17,7 +17,7 @@ object Initializer {
      */
     fun initWithVCK() {
         LibraryInitializer.registerExtensionLibrary(
-            credentialScheme = EPrescriptionScheme,
+            credentialScheme = HealthIdScheme,
         )
     }
 

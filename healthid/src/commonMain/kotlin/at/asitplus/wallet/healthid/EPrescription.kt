@@ -1,9 +1,9 @@
-package at.asitplus.wallet.eprescription
+package at.asitplus.wallet.healthid
 
 
-import at.asitplus.wallet.eprescription.EPrescriptionDataElements.COUNTRY_CODE
-import at.asitplus.wallet.eprescription.EPrescriptionDataElements.OTT
-import at.asitplus.wallet.eprescription.EPrescriptionDataElements.VALID_UNTIL
+import at.asitplus.wallet.healthid.EPrescriptionDataElements.COUNTRY_CODE
+import at.asitplus.wallet.healthid.EPrescriptionDataElements.OTT
+import at.asitplus.wallet.healthid.EPrescriptionDataElements.VALID_UNTIL
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
