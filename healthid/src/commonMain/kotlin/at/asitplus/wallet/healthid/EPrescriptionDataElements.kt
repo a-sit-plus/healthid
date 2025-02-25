@@ -1,6 +1,7 @@
-package at.asitplus.wallet.eprescription
+package at.asitplus.wallet.healthid
 
 
+@Deprecated("Replace with HealthID")
 object EPrescriptionDataElements {
     const val OTT = "one_time_token"
     const val COUNTRY_CODE = "country_code"

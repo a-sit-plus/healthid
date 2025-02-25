@@ -9,5 +9,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "eprescription"
-include(":eprescription")
+rootProject.name = "Health ID Attestation"
+include(":healthid")
