@@ -1,6 +1,3 @@
-import at.asitplus.gradle.Logger
-import at.asitplus.gradle.kotest
-import at.asitplus.gradle.serialization
 import at.asitplus.gradle.setupDokka
 
 plugins {
@@ -36,11 +33,11 @@ val javadocJar = setupDokka(baseUrl = "https://github.com/a-sit-plus/eprescripti
 publishing {
     publications {
         withType<MavenPublication> {
-            artifact(javadocJar)
+            if (this.name != "relocation") artifact(javadocJar)
             pom {
                 name.set("Health ID Attestation")
                 description.set("Use data representing Health ID as a SD-JWT credential, using VC-K")
-                url.set("https://github.com/a-sit-plus/eprescription/")
+                url.set("https://github.com/a-sit-plus/healthid/")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
@@ -55,12 +52,30 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git@github.com:a-sit-plus/eprescription.git")
-                    developerConnection.set("scm:git:git@github.com:a-sit-plus/eprescription.git")
-                    url.set("https://github.com/a-sit-plus/eprescription/")
+                    connection.set("scm:git:git@github.com:a-sit-plus/healthid.git")
+                    developerConnection.set("scm:git:git@github.com:a-sit-plus/healthid.git")
+                    url.set("https://github.com/a-sit-plus/healthid/")
                 }
             }
         }
+        //REMOVE ME AFTER RELOCATED ARTIFACT HAS BEEN PUBLISHED
+        create<MavenPublication>("relocation") {
+            pom {
+                // Old artifact coordinates
+                artifactId = "eprescription"
+                version = artifactVersion
+
+                distributionManagement {
+                    relocation {
+                        // New artifact coordinates
+                        artifactId = "healthid"
+                        version = artifactVersion
+                        message = "artifactId have been changed"
+                    }
+                }
+            }
+        }
+
     }
     repositories {
         mavenLocal {
