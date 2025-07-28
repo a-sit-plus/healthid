@@ -1,7 +1,10 @@
 package at.asitplus.wallet.healthid
 
-import at.asitplus.signum.indispensable.CryptoSignature
+import at.asitplus.iso.IssuerSignedItemSerializer
 import at.asitplus.signum.indispensable.cosef.*
+import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
+import at.asitplus.signum.supreme.sign.EphemeralKey
+import at.asitplus.signum.supreme.signature
 import at.asitplus.wallet.healthid.HealthIdScheme.Attributes
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
@@ -12,10 +15,12 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import kotlinx.datetime.Clock
+import io.kotest.provided.randomInstant
+import io.kotest.provided.randomString
 import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.random.nextUInt
+import kotlin.time.Clock
 
 class IsoSerializationTest : FreeSpec({
 
@@ -23,10 +28,20 @@ class IsoSerializationTest : FreeSpec({
         withData(nameFn = { "for ${it.key}" }, dataMap().entries) {
             val item = it.toIssuerSignedItem()
 
-            val serialized = item.serialize(HealthIdScheme.isoNamespace)
+            val serialized = coseCompliantSerializer.encodeToByteArray(
+                IssuerSignedItemSerializer(
+                    HealthIdScheme.isoNamespace,
+                    it.key
+                ), item
+            )
 
-            val deserialized =
-                IssuerSignedItem.deserialize(serialized, HealthIdScheme.isoNamespace, item.elementIdentifier).getOrThrow()
+
+            val deserialized = coseCompliantSerializer.decodeFromByteArray(
+                IssuerSignedItemSerializer(
+                    HealthIdScheme.isoNamespace,
+                    it.key
+                ), serialized
+            ) shouldBe item
 
             deserialized.elementValue shouldBe it.value
         }
@@ -41,11 +56,14 @@ class IsoSerializationTest : FreeSpec({
             docType = "docType",
             validityInfo = ValidityInfo(Clock.System.now(), Clock.System.now(), Clock.System.now())
         )
+        val rsaSig = EphemeralKey {
+            rsa
+        }.getOrThrow().signer { }.getOrThrow().sign(byteArrayOf(1, 3, 3, 7)).signature
         val claims = dataMap()
         val namespacedItems: Map<String, List<IssuerSignedItem>> =
             mapOf(HealthIdScheme.isoNamespace to claims.map { it.toIssuerSignedItem() }.toList())
         val issuerAuth = CoseSigned.create(
-            CoseHeader(), null, mso, CryptoSignature.RSAorHMAC(byteArrayOf(1, 3, 3, 7)),
+            CoseHeader(), null, mso, rsaSig,
             MobileSecurityObject.serializer()
         )
         val credential = SubjectCredentialStore.StoreEntry.Iso(

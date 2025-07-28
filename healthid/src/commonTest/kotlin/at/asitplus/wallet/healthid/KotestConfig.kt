@@ -1,11 +1,13 @@
-package at.asitplus.wallet.healthid
+package io.kotest.provided
 
-import io.kotest.core.config.AbstractProjectConfig
-import kotlinx.datetime.Instant
+import at.asitplus.test.XmlReportingProjectConfig
+import at.asitplus.wallet.healthid.Initializer
 import kotlinx.datetime.LocalDate
 import kotlin.random.Random
+import kotlin.time.Instant
 
-class KotestConfig : AbstractProjectConfig() {
+/** Wires KMP JUnit XML reporting */
+class ProjectConfig : XmlReportingProjectConfig() {
     init {
         Initializer.initWithVCK()
     }
