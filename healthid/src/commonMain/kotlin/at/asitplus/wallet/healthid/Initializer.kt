@@ -4,7 +4,8 @@ import at.asitplus.wallet.healthid.HealthIdScheme.Attributes
 import at.asitplus.wallet.lib.JsonValueEncoder
 import at.asitplus.wallet.lib.LibraryInitializer
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import kotlinx.datetime.Instant
+import kotlinx.serialization.builtins.serializer
+import kotlin.time.Instant
 import kotlinx.serialization.json.encodeToJsonElement
 
 object Initializer {
