@@ -22,7 +22,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api("at.asitplus.wallet:vck:5.8.0-SNAPSHOT")
+                api("at.asitplus.wallet:vck:5.8.0")
             }
         }
     }
